@@ -1,0 +1,372 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    overflow: hidden;
+    user-select: none;
+}
+
+#gameContainer {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+#gameCanvas {
+    background: linear-gradient(45deg, #1e3c72 0%, #2a5298 100%);
+    display: block;
+    cursor: crosshair;
+}
+
+#ui {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 100;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.5);
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+#ui div {
+    margin-bottom: 8px;
+}
+
+#ui div:last-child {
+    margin-bottom: 0;
+}
+
+#leaderboard {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.8);
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+    min-width: 220px;
+    z-index: 100;
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+#leaderboard h3 {
+    margin-bottom: 10px;
+    text-align: center;
+    color: #FFD700;
+}
+
+#leaderboardList div {
+    padding: 3px 0;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+#leaderboardList div:nth-child(1) { color: #FFD700; }
+#leaderboardList div:nth-child(2) { color: #C0C0C0; }
+#leaderboardList div:nth-child(3) { color: #CD7F32; }
+
+#gameOverScreen, #startScreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    z-index: 200;
+}
+
+#gameOverScreen {
+    display: none;
+}
+
+#gameOverContent, #startContent {
+    text-align: center;
+    background: rgba(255,255,255,0.1);
+    padding: 40px;
+    border-radius: 20px;
+    border: 2px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+}
+
+#gameOverContent h1, #startContent h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+#gameOverContent p, #startContent p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+#respawnBtn, #startBtn {
+    padding: 15px 30px;
+    font-size: 20px;
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+#respawnBtn:hover, #startBtn:hover {
+    background: linear-gradient(45deg, #45a049, #4CAF50);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+#playerName {
+    padding: 12px 20px;
+    font-size: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 25px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    text-align: center;
+    margin: 20px 0;
+    width: 250px;
+}
+
+#playerName::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+
+#playerName:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+#instructions {
+    margin-top: 30px;
+    text-align: left;
+    background: rgba(0,0,0,0.3);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#instructions h3 {
+    color: #FFD700;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#instructions ul {
+    list-style: none;
+}
+
+#instructions li {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.evolution-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #FFD700;
+    font-size: 28px;
+    font-weight: bold;
+    pointer-events: none;
+    animation: evolveFloat 2.5s ease-out forwards;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    z-index: 150;
+}
+
+@keyframes evolveFloat {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+    50% {
+        transform: translate(-50%, -100%) scale(1.3) rotate(180deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -200%) scale(1.5) rotate(360deg);
+    }
+}
+
+.minimap {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 150px;
+    height: 150px;
+    background: rgba(0,0,0,0.8);
+    border: 2px solid white;
+    border-radius: 10px;
+    z-index: 100;
+}
+
+#evolutionStages {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0,0,0,0.8);
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+    max-width: 200px;
+    z-index: 100;
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+#evolutionStages h4 {
+    color: #FFD700;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#stagesList {
+    font-size: 12px;
+}
+
+.stage-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.stage-item.current {
+    background: rgba(76, 175, 80, 0.3);
+    border: 1px solid #4CAF50;
+}
+
+.stage-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    border: 1px solid white;
+}
+
+.damage-indicator {
+    position: absolute;
+    color: #FF4444;
+    font-size: 16px;
+    font-weight: bold;
+    pointer-events: none;
+    animation: damageFloat 1s ease-out forwards;
+    z-index: 120;
+}
+
+@keyframes damageFloat {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-30px) scale(1.2);
+    }
+}
+
+.score-popup {
+    position: absolute;
+    color: #4CAF50;
+    font-size: 14px;
+    font-weight: bold;
+    pointer-events: none;
+    animation: scoreFloat 1.5s ease-out forwards;
+    z-index: 120;
+}
+
+@keyframes scoreFloat {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px) scale(1.1);
+    }
+}
+
+/* Particle effects */
+.particle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 110;
+    animation: particleFloat 2s ease-out forwards;
+}
+
+@keyframes particleFloat {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.5);
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    #ui {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    #leaderboard {
+        min-width: 180px;
+        font-size: 12px;
+    }
+
+    #evolutionStages {
+        max-width: 150px;
+        font-size: 10px;
+    }
+
+    .minimap {
+        width: 120px;
+        height: 120px;
+    }
+
+    #gameOverContent, #startContent {
+        padding: 20px;
+        margin: 20px;
+    }
+
+    #gameOverContent h1, #startContent h1 {
+        font-size: 2em;
+    }
+}
+
+/* Loading animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

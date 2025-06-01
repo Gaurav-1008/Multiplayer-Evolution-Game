@@ -5,7 +5,8 @@ A browser-based .io-style game where you evolve through 8 creature stages, battl
 Multiplayer Game/
 ├── index.html     (Main HTML structure)
 ├── styles.css     (All game styling and animations)
-└── game.js        (Complete game logic and mechanics)
+├── game.js        (Complete game logic and mechanics)
+└──README.md       (ReadMe File for understanding)
 
 
 🎮 Enhanced Features:
