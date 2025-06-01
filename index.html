@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolution Arena - Multiplayer Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="gameContainer">
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="ui">
+        <div>Level: <span id="playerLevel">1</span></div>
+        <div>Score: <span id="playerScore">0</span></div>
+        <div>Evolution: <span id="evolutionProgress">0/10</span></div>
+        <div>Health: <span id="playerHealth">100/100</span></div>
+    </div>
+
+    <div id="leaderboard">
+        <h3>🏆 Leaderboard</h3>
+        <div id="leaderboardList"></div>
+    </div>
+
+    <div id="gameOverScreen">
+        <div id="gameOverContent">
+            <h1>💀 Game Over!</h1>
+            <p>Final Score: <span id="finalScore">0</span></p>
+            <p>Level Reached: <span id="finalLevel">1</span></p>
+            <p>Time Survived: <span id="timeSurvived">0</span>s</p>
+            <button id="respawnBtn">🔄 Respawn</button>
+        </div>
+    </div>
+
+    <div id="startScreen">
+        <div id="startContent">
+            <h1>🧬 Evolution Arena</h1>
+            <p>Eat, Evolve, Survive!</p>
+            <input type="text" id="playerName" placeholder="Enter your name" maxlength="15">
+            <button id="startBtn">🚀 Start Game</button>
+            <div id="instructions">
+                <h3>How to Play:</h3>
+                <ul>
+                    <li>🖱️ Move mouse to control your creature</li>
+                    <li>🍎 Eat food to grow and evolve</li>
+                    <li>⚔️ Battle smaller opponents to gain power</li>
+                    <li>🏃 Avoid larger predators</li>
+                    <li>📈 Evolve through 8 stages to dominate!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="minimap" class="minimap"></canvas>
+
+    <div id="evolutionStages">
+        <h4>Evolution Stages:</h4>
+        <div id="stagesList"></div>
+    </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
